@@ -1,0 +1,42 @@
+
+
+<div class = 'update_body'>
+<%= form_for @task, url:task_path(@task.id) do |f|%>
+    <table class='edit_frame'>
+        <tr>
+            <td class='col1'>ステータス</td>
+            <td class='col2'>
+                <%if @task.errors.messages[:status].any?%>
+                    <p class="edit_errmsg"><%= @task.errors.messages[:status][0] %></p>
+                <% end %>
+                <%= f.select :status,{未完了:'未完了', 完了:'完了'}%>
+            </td>
+        </tr>
+
+        <tr>
+            <td class='col1'>期日</td>
+            <td class='col2'>
+                <%if @task.errors.messages[:deadline].any?%>
+                    <p class="edit_errmsg"><%= @task.errors.messages[:deadline][0] %></p>
+                <% end %>
+                <%= f.date_field :deadline %>
+            </td>
+        </tr>
+
+        <tr>
+            <td class='col1'>内容</td>
+            <td class='col2'>
+                <%if @task.errors.messages[:item].any?%>
+                    <p class="edit_errmsg"><%= @task.errors.messages[:item][0] %></p>
+                <% end %>
+                <%= f.text_field :item, class:'update_task' %>
+            </td>
+        </tr>
+
+    </table>
+
+    <p>
+        <%= f.submit value:'更新', class:'updatebtn'%>
+    </p>
+<%end%>
+</div>

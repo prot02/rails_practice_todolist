@@ -1,0 +1,39 @@
+<h3>タスク一覧</h3>
+<table class='task_list'>
+    <thead>
+    <tr>
+        <th class='col1'>ステータス</th>
+        <th class='col2'>期日</th>
+        <th class='col3'>内容</th>
+        
+    </tr>
+    </thead>
+    
+    <tbody>
+    <% @tasks.each do |task| %>
+        <tr>
+            <td class='col1'><%= task.status %></td>
+            <td class='col2'><%= task.deadline %></td>
+            <td class='col3'><%= task.item %></td>
+            <td class='col4'> <%= link_to '編集', edit_task_path(task.id), class:'command' %></td>
+            <td class='col5'> <%= link_to '削除', task_path(task.id), method: :delete, data:{confirm:'削除してもよろしいでしょうか？'}, class:'command' %></td>
+        </tr>
+        
+    <% end %>
+    </tbody>
+</table>
+
+
+
+<% if @task.errors.messages[:item].any? %>
+    <p class='index_errmsg'><%= @task.errors.messages[:item][0] %></p>
+<% end %>
+
+
+<div class='input_frame'>
+<%= form_for :task, url:tasks_path do |f|%>
+    
+    <%= f.submit value:'追加', class:'postbtn'%>
+    <%= f.text_field :item, placeholder:'タスクの追加' , class:'input_task'%>
+<%end%>
+</div>
